@@ -10,18 +10,20 @@ This project/repository is an experimental collection of libraries designed to s
 * Pro-actively acquiring the tokens necessary for the operation of your app
 * Tracking issues relative to access on behalf of the application and only optionally requiring the application to explicitly start an identity related UI operation.
 
-> If any of the terminology used in this read me is confusing please refer the glossary. [TODO]
+><b>Nothing here is "done", in fact we're just starting.  We're actively looking for your input/feedback about our ideas and implementation across different platforms and scenarios.  Please consider watching the project by clicking the Watch button above.  Consider submitted your suggestions/thoughts/feedback as issues.  We'll be setting up appropriate tags, but don't want to make the process onerous... if you have any idea we encourage you to just scribble it out.  Identity folks can be a bit wonkish, but this is safe place, so don't feel you have to have everything "figure out", "thought out", etc....</b>
+
 
 ## Imperative vs. Declarative
 
 While there are academic definitions of imperative and declarative programming... Here we'll try to give a more practical definition:
 
-Imperative: Perform a series of prescribed steps to achieve a desired outcome
-Declarative: Say what your desired outcome is and don't worry about how's it's accomplished
+<b>Imperative</b>: Perform a series of prescribed steps to achieve a desired outcome
+
+<b>Declarative</b>: Say what your desired outcome is and don't worry about how's it's accomplished
 
 To date, most auth (authentication and/or authorization) libraries are designed to be used imperatively, including those from Microsoft (ADAL, MSAL, etc...).  ADAL and MSAL are oAuth Libraries, they don't explicitly support OpenId Connect in most cases.  Even with this limited scope Microsoft identity services provide numerous protections in the form of Conditional Access that result in client developers having to know how those things work in order to successfully use the libraries.
 
-Here's an example of the imperative steps that could be necessaring using MSAL to access Microsoft Graph for example:
+<b>Here's an example of the imperative steps that could be necessaring using MSAL to access Microsoft Graph for example</b>:
 
 - Use acquireTokensilent to get a token for MS Graph (ex. mail.read)
 - Get an access token back from MSAL via callback/promise/future/etc...
@@ -31,8 +33,6 @@ Here's an example of the imperative steps that could be necessaring using MSAL t
 - Submit that challenge as part of a second aquireTokenSilent for the same scope (mail.read)
 - Get an error/exception back from MSAL via callback/promise/future/etc...
 - Take the same challenge received and submit an interactive request (aquireToken)
-
-We don't think this is going to be sustainable for developers and the organizations
 
 Instead of this.... imagine....
 
@@ -44,12 +44,13 @@ You, the developer, declared:
 - Which code modules / components belonged to which features
 - Added provided indentity interceptors to your HTTP stack, OR used an HTTP stack provided by the libraries themselves...
 
-<b>And that there was no API to get a token</b>  You just make your HTTP request.  It either succeeds or fails.  1
+<b>There is no get token method.  You, the developer, just make your HTTP request.  It either succeeds or fails.</b>
 
-If it fails, it's because the user of your application needs to get involved.
+<b>If it fails and it can be fixed by the user, you just ask the Identity system to fix it for your user.</b>
 
+<b>You don't need to know how identity works in order to use it.</b>
 
-The correct use of identity services is hard and authentication and authorization services continue to evolve, improving the security, reliability and performance of what they offer to the applications and services that they help protect.  
+The correct use of identity services is hard and authentication and authorization services continue to evolve, improving the security, reliability and performance of what they offer to the applications and services that they help protect. Having declarative libraries that encapsulate the interaction with the identity services is key to all apps being able to quickly and easily adopt the latest on offer.
 
 ## Contributing
 

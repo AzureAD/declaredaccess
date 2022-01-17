@@ -1,0 +1,8 @@
+com.microsoft.intune.mam.client.app
+com.microsoft.intune.mam.client.app.backup
+com.microsoft.intune.mam.client.content
+com.microsoft.intune.mam.client.identity
+com.microsoft.intune.mam.client.os
+com.microsoft.intune.mam.client.preference
+com.microsoft.intune.mam.client.strict
+

@@ -10,7 +10,7 @@ This project/repository is an experimental collection of libraries designed to s
 * Pro-actively acquiring the tokens necessary for the operation of your app
 * Tracking issues relative to access on behalf of the application and only optionally requiring the application to explicitly start an identity related UI operation.
 
-><b>Nothing here is "done", in fact we're just starting.  We're actively looking for your input/feedback about our ideas and implementation across different platforms and scenarios.  Please consider watching the project by clicking the Watch button above.  Consider submitted your suggestions/thoughts/feedback as issues.  We'll be setting up appropriate tags, but don't want to make the process onerous... if you have any idea we encourage you to just scribble it out.  Identity folks can be a bit wonkish, but this is safe place, so don't feel you have to have everything "figure out", "thought out", etc....</b>
+><b>Nothing here is "done", in fact we're just starting.  We're actively looking for your input/feedback about our ideas and implementation across different platforms and scenarios.  Please consider watching the project by clicking the Watch button above.  Consider submitting your suggestions/thoughts/feedback as issues.  We'll be setting up appropriate tags, but don't want to make the process onerous... if you have any idea we encourage you to just scribble it out.  Identity folks can be a bit wonkish, but this is safe place, so don't feel you have to have everything "figured out", "thought out", etc....</b>
 
 
 ## Imperative vs. Declarative
@@ -46,7 +46,7 @@ You, the developer, declared:
 
 <b>There is no get token method.  You, the developer, just make your HTTP request.  It either succeeds or fails.</b>
 
-<b>If it fails and it can be fixed by the user, you just ask the Identity system to fix it for your user.</b>
+<b>If it fails and it can be fixed by the user, you just ask the library to fix it for your user.</b>
 
 <b>You don't need to know how identity works in order to use it.</b>
 

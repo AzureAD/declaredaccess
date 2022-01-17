@@ -1,0 +1,8 @@
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore java heap memory dumps
+*.hprof 
+
+# Ignore Gradle build output directory
+build

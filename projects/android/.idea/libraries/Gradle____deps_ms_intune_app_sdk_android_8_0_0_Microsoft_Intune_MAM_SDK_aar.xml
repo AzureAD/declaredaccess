@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: ./deps/ms-intune-app-sdk-android-8.0.0/Microsoft.Intune.MAM.SDK.aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/59204553614c2ec2f3cba2e7706421bb/transformed/jetified-Microsoft.Intune.MAM.SDK/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/59204553614c2ec2f3cba2e7706421bb/transformed/jetified-Microsoft.Intune.MAM.SDK/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/59204553614c2ec2f3cba2e7706421bb/transformed/jetified-Microsoft.Intune.MAM.SDK/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

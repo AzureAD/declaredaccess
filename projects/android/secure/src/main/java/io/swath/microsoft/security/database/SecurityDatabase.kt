@@ -6,7 +6,7 @@ import io.swath.microsoft.security.database.dao.*
 import io.swath.microsoft.security.database.entities.*
 
 //TODO: Exporting the schema and having a plan for versioning/migration
-@Database(entities = [Account::class, Application::class, Cloud::class, Feature::class, Organization::class, AccountFeature::class], version = 1, exportSchema = false)
+@Database(entities = [Account::class, Application::class, Cloud::class, Feature::class, Organization::class, AccountFeature::class], version = 1)
 abstract class SecurityDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
     abstract fun organizationDao(): OrganizationDao

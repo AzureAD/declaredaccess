@@ -1,7 +1,7 @@
 plugins {
     id("com.android.library")
     id("kotlin-android")
-    id("com.google.devtools.ksp") version "1.5.31-1.0.0"
+    id("com.google.devtools.ksp") version "1.6.21-1.0.6"
     kotlin("kapt")
 }
 
@@ -37,8 +37,8 @@ dependencies {
     /**
      * Android UI Libraries
      */
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.1")
+    implementation("androidx.appcompat:appcompat:1.4.2")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     /**
      * MSAL
@@ -48,7 +48,7 @@ dependencies {
 
     /**
      * Start Work Manager     */
-    val workVersion = "2.6.0"
+    val workVersion = "2.7.1"
 
     // (Java only)
     implementation("androidx.work:work-runtime:$workVersion")
@@ -72,16 +72,13 @@ dependencies {
     /**
      * Start Room Dependencies
      */
-    //Kotlin Symbolic processing
-    implementation("com.google.devtools.ksp:symbol-processing-api:1.5.31-1.0.0")
-
-    val roomVersion = "2.3.0"
+    val roomVersion = "2.4.2"
 
     implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
 
     // To use Kotlin annotation processing tool (kapt)
-    kapt("androidx.room:room-compiler:$roomVersion")
+    //kapt("androidx.room:room-compiler:$roomVersion")
     // To use Kotlin Symbolic Processing (KSP)
     ksp("androidx.room:room-compiler:$roomVersion")
 
@@ -89,29 +86,29 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
 
     // optional - RxJava2 support for Room
-    implementation("androidx.room:room-rxjava2:$roomVersion")
+    //implementation("androidx.room:room-rxjava2:$roomVersion")
 
     // optional - RxJava3 support for Room
-    implementation("androidx.room:room-rxjava3:$roomVersion")
+    //implementation("androidx.room:room-rxjava3:$roomVersion")
 
     // optional - Guava support for Room, including Optional and ListenableFuture
-    implementation("androidx.room:room-guava:$roomVersion")
+    //implementation("androidx.room:room-guava:$roomVersion")
 
     // optional - Test helpers
     testImplementation("androidx.room:room-testing:$roomVersion")
 
     // optional - Paging 3 Integration
-    implementation("androidx.room:room-paging:2.4.0-alpha05")
+    //implementation("androidx.room:room-paging:2.5.0-alpha02")
 
     /**
      * End Room Dependencies
      */
 
     //Kotlin Co-routines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2")
 
     //Kotlin reflection
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.31")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.21")
 
 
     testImplementation("junit:junit:4.+")

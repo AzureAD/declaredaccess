@@ -5,12 +5,12 @@ plugins {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 32
 
     defaultConfig {
         applicationId = "io.eyeonit.eyeonit"
         minSdk=21
-        targetSdk=31
+        targetSdk=32
         versionCode = 1
         versionName = "1.0"
 
@@ -36,7 +36,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.4"
+        kotlinCompilerExtensionVersion = "1.2.0-beta03"
     }
 }
 
@@ -48,15 +48,15 @@ dependencies {
     //Kotlin Co-routines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 
-    val compose_version = "1.0.4"
+    val compose_version = "1.2.0-beta03"
 
-    implementation("androidx.core:core-ktx:1.6.0")
+    implementation("androidx.core:core-ktx:1.8.0")
     implementation("androidx.compose.ui:ui:$compose_version")
     implementation("androidx.compose.material:material:$compose_version")
     implementation("androidx.compose.material:material-icons-extended:$compose_version")
-    implementation("androidx.activity:activity-compose:1.3.1")
+    implementation("androidx.activity:activity-compose:1.4.0")
     implementation("androidx.compose.ui:ui-tooling:$compose_version")
-    implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
+    implementation("androidx.navigation:navigation-compose:2.4.2")
 
     // UI Tests
     testImplementation("junit:junit:4.+")

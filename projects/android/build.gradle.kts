@@ -5,8 +5,8 @@
  * Learn more about Gradle by exploring our samples at https://docs.gradle.org/7.1/samples
  */
 plugins {
-    kotlin("jvm") version "1.5.31" apply false
-    kotlin("plugin.serialization") version "1.5.31"
+    kotlin("jvm") version "1.6.21" apply false
+    kotlin("plugin.serialization") version "1.6.21"
 }
 
 buildscript {
@@ -18,10 +18,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
-        classpath("com.android.tools.build:gradle:7.0.3")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21")
+        classpath("com.android.tools.build:gradle:7.2.1")
         classpath("org.javassist:javassist:3.27.0-GA")
-        classpath(kotlin("gradle-plugin", version = "1.5.31"))
+        classpath(kotlin("gradle-plugin", version = "1.6.21"))
         classpath(files("deps/ms-intune-app-sdk-android-8.0.0/GradlePlugin/com.microsoft.intune.mam.build.jar"))
     }
 }

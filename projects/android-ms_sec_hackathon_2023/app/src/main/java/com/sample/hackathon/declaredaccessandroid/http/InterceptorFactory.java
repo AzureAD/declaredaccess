@@ -9,7 +9,7 @@ class InterceptorFactory {
     @NonNull
     static Interceptor createApplicationInterceptor() {
         return chain -> {
-            // TODO define interceptor here
+            // TODO define MSAL-based interceptor here
             return null;
         };
     }
@@ -17,8 +17,8 @@ class InterceptorFactory {
     @NonNull
     static Interceptor createNetworkInterceptor() {
         return chain -> {
-            // TODO define interceptor here
-            return null;
+            // NO-OP for now. Don't think we will need this.
+            return chain.proceed(chain.request());
         };
     }
 }

@@ -1,17 +1,8 @@
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
-    signingConfigs {
-        debug {
-            storeFile file('C:\\Users\\brianmel\\.android\\debug.keystore')
-            storePassword 'android'
-            keyPassword 'android'
-        }
-    }
-    namespace 'com.sample.hackathon.declaredaccessandroid'
+
     compileSdk 33
 
     defaultConfig {
@@ -35,12 +26,26 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.2.0-rc02"
+    }
 }
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.6.0'
+
+    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("androidx.compose.ui:ui:1.2.0-beta03")
+    implementation("androidx.compose.material:material:1.2.0-beta03")
+    implementation("androidx.compose.material:material-icons-extended:1.2.0-beta03")
+    implementation("androidx.activity:activity-compose:1.4.0")
+    implementation("androidx.compose.ui:ui-tooling:1.2.0-beta03")
+    implementation("androidx.navigation:navigation-compose:2.4.2")
 
     // Retrofit as our HTTP Client...
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

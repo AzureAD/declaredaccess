@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Microsoft.Intune.MAM.SDK-javadoc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/projects/android/deps/ms-intune-app-sdk-android-8.0.0/Microsoft.Intune.MAM.SDK-javadoc.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

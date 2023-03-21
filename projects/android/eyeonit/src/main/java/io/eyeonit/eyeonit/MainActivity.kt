@@ -22,8 +22,8 @@ import io.eyeonit.eyeonit.navigation.AuthNavHost
 import io.eyeonit.eyeonit.navigation.ProtectedRoutesNav
 import io.eyeonit.eyeonit.navigation.UnprotectedRoutesNav
 import io.eyeonit.eyeonit.navigation.RootNav
-import io.eyeonit.eyeonit.navigation.introGraph
-import io.eyeonit.eyeonit.navigation.mainGraph
+import io.eyeonit.eyeonit.navigation.unprotectedRoutesGraph
+import io.eyeonit.eyeonit.navigation.protectedRoutesGraph
 import io.eyeonit.eyeonit.ui.SplashScreen
 
 class MainActivity : ComponentActivity() {
@@ -45,9 +45,9 @@ class MainActivity : ComponentActivity() {
                             }
                         },
                         protectedRoutesRootId = ProtectedRoutesNav.ROUTE,
-                        protectedRoutes = { mainGraph(navController) },
+                        protectedRoutes = { protectedRoutesGraph(navController) },
                         unprotectedRoutesRootId = UnprotectedRoutesNav.ROUTE,
-                        unprotectedRoutes = { introGraph(navController) }
+                        unprotectedRoutes = { unprotectedRoutesGraph(navController) }
                     )
                 }
             }

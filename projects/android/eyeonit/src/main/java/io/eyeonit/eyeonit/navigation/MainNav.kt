@@ -7,7 +7,7 @@ import androidx.navigation.compose.navigation
 import io.eyeonit.eyeonit.ui.HomeScreen
 import io.eyeonit.eyeonit.ui.SettingsScreen
 
-fun NavGraphBuilder.mainGraph(navController: NavController) {
+fun NavGraphBuilder.protectedRoutesGraph(navController: NavController) {
     navigation(startDestination = ProtectedRoutesNav.HOME_SCREEN, route = ProtectedRoutesNav.ROUTE) {
         composable(ProtectedRoutesNav.HOME_SCREEN){
             HomeScreen(navController)

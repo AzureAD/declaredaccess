@@ -1,17 +1,8 @@
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
-    signingConfigs {
-        debug {
-            storeFile file('C:\\Users\\brianmel\\.android\\debug.keystore')
-            storePassword 'android'
-            keyPassword 'android'
-        }
-    }
-    namespace 'com.sample.hackathon.declaredaccessandroid'
+
     compileSdk 33
 
     defaultConfig {
@@ -40,7 +31,7 @@ android {
 dependencies {
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.6.0'
 
     // Retrofit as our HTTP Client...
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

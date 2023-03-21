@@ -48,6 +48,6 @@ public class ResourceConfiguration {
     }
 
     public String getDefaultScope() {
-        return "api://" + mAadAppId + "/.default";
+        return getEndpointUrl() + "/.default";
     }
 }

@@ -79,6 +79,7 @@ class InterceptorFactory {
                     new AcquireTokenSilentParameters.Builder()
                             .forAccount(account)
                             .withScopes(scopes)
+                            .fromAuthority(account.getAuthority())
                             .build();
 
             // Make the request to MSAL...

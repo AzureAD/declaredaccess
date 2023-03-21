@@ -75,13 +75,11 @@ dependencies {
     //Kotlin Symbolic processing
     implementation("com.google.devtools.ksp:symbol-processing-api:1.5.31-1.0.0")
 
-    val roomVersion = "2.3.0"
+    val roomVersion = "2.4.2"
 
     implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
 
-    // To use Kotlin annotation processing tool (kapt)
-    kapt("androidx.room:room-compiler:$roomVersion")
     // To use Kotlin Symbolic Processing (KSP)
     ksp("androidx.room:room-compiler:$roomVersion")
 

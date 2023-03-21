@@ -30,6 +30,5 @@ fun SplashScreen() {
 @Preview
 @Composable
 fun SplashPreview() {
-    val navController = rememberNavController()
     SplashScreen()
 }

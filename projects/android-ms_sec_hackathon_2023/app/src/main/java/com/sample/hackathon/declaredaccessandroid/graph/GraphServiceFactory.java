@@ -1,7 +1,9 @@
 package com.sample.hackathon.declaredaccessandroid.graph;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.microsoft.identity.client.ISingleAccountPublicClientApplication;
 import com.sample.hackathon.declaredaccessandroid.http.HttpClientFactory;
 
 import okhttp3.OkHttpClient;
@@ -36,8 +38,9 @@ public class GraphServiceFactory {
      * @return An instance of the GraphService initialized with defaults for the Microsoft
      * Security Hackathon.
      */
-    public static GraphService createDefaultGraphService() {
-        return createGraphService(HttpClientFactory.createDefaultHttpClient());
+    public static GraphService createDefaultGraphService(
+            @Nullable final ISingleAccountPublicClientApplication publicClientApplication) {
+        return createGraphService(HttpClientFactory.createDefaultHttpClient(publicClientApplication));
     }
 
 }

@@ -4,6 +4,9 @@ import static com.sample.hackathon.declaredaccessandroid.http.InterceptorFactory
 import static com.sample.hackathon.declaredaccessandroid.http.InterceptorFactory.createNetworkInterceptor;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.microsoft.identity.client.ISingleAccountPublicClientApplication;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -25,9 +28,10 @@ public class HttpClientFactory {
     }
 
     @NonNull
-    public static OkHttpClient createDefaultHttpClient() {
+    public static OkHttpClient createDefaultHttpClient(
+            @Nullable final ISingleAccountPublicClientApplication publicClientApplication) {
         return createHttpClient(
-                createApplicationInterceptor(),
+                createApplicationInterceptor(publicClientApplication),
                 createNetworkInterceptor()
         );
     }

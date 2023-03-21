@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="com.microsoft.intune.mam.build">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/projects/android/deps/ms-intune-app-sdk-android-8.0.0/GradlePlugin/com.microsoft.intune.mam.build.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

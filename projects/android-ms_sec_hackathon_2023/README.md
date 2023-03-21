@@ -1,0 +1,7 @@
+# Android POC for DeclaredAccess
+
+## What's here so far
+- [brianmel] I have tried to make this project easy to bootstrap working with Graph & MSAL. See `MainActivity.kt` for comments with pointers on useful factory functions to call.
+
+## You will need to configure a keystore to successfully build
+- [brianmel] Here is the keystore you will need. Put it at `C://Users/<your_username>/.android/debug.keystore`. You may need to reboot your IDE for the changes to be picked up.

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/projects/android/deps/ms-intune-app-sdk-android-8.0.0/BuildTool/lib/commons-cli-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/projects/android/deps/ms-intune-app-sdk-android-8.0.0/BuildTool/lib/com.microsoft.intune.mam.rewrite.jar!/" />
+      <root url="jar://$PROJECT_DIR$/projects/android/deps/ms-intune-app-sdk-android-8.0.0/BuildTool/lib/com.microsoft.intune.mam.build.core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/projects/android/deps/ms-intune-app-sdk-android-8.0.0/BuildTool/lib/com.microsoft.intune.mam.build.cli.jar!/" />
+      <root url="jar://$PROJECT_DIR$/projects/android/deps/ms-intune-app-sdk-android-8.0.0/BuildTool/lib/javassist-3.27.0-GA.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

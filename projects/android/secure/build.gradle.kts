@@ -72,6 +72,9 @@ dependencies {
     /**
      * Start Room Dependencies
      */
+    //Kotlin Symbolic processing
+    implementation("com.google.devtools.ksp:symbol-processing-api:1.5.31-1.0.0")
+
     val roomVersion = "2.4.2"
 
     implementation("androidx.room:room-runtime:$roomVersion")

@@ -60,10 +60,10 @@ export class ApiClient implements IApiClient{
             return originalFetch(input, init);
         }
 
-        //scope = scope.concat("/.default");
+        scope = scope.concat("/.default");
 
         //Invalid scope for testing:
-        scope = scope.concat("");
+        //scope = scope.concat("");
         
         const tokenRequest = {
             scopes: [scope],

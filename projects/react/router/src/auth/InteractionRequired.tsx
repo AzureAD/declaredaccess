@@ -1,36 +1,65 @@
 import { useMsal, useIsAuthenticated } from '@azure/msal-react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { RedirectRequest } from '@azure/msal-browser';
+import { InteractionRequiredDetails } from './InteractionRequiredDetails';
 
 function InteractionRequired(){
 
     const { instance } = useMsal();
     const isAuthenticated = useIsAuthenticated();
+    const {state} = useLocation();
+    const navigate = useNavigate();
 
-    const loginRequest = {
-        scopes: ["User.Read"]
-    };
+    let details: InteractionRequiredDetails | undefined = undefined;
 
-    const handleLogin = (loginType: string) => {
-        if (loginType === "redirect") {
-            instance.loginRedirect(loginRequest).catch(e => {
-                console.log(e);
-            });
-        }
+    const isInteractionRequiredDetails = (input: any): input is InteractionRequiredDetails => {
+        return (input as InteractionRequiredDetails).silentRequest !== undefined;
     }
 
     if(isAuthenticated){
-        return <Navigate to="/" replace />;
+        if(isInteractionRequiredDetails(state.interactionRequiredDetails)){
+            details = state.interactionRequiredDetails;
+        }else{
+            //Log and send to home route
+            console.log("unexpected: no failed silent request was provided via state");
+            navigate("/", {replace: true});
+        }
     }else{
-        return (
-            <div className="flex dark:bg-[#282c34] bg-white align-middle flex-col min-h-screen">
-                <div className="flex flex-col m-10 dark:bg-[#282c34] bg-white">
-                    <h1 className="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">Sign In</h1>
-                    <button></button>
-                </div>
-            </div>
-        )
+        navigate("/", {replace: true});
     }
     
+    if(details === undefined){
+        throw new Error("unexpected: details of the failed request was undefined.");
+    }
+
+    const request: RedirectRequest = {
+        scopes: details.silentRequest.scopes
+    };
+
+    const handleInteractive = async () => {
+        
+        //Using popup here for problem resolution to avoid dealing with redirect, events, handleRedirect etc....
+        try{
+            //We don't need the response
+            await instance.acquireTokenPopup(request);
+            navigate(-1);
+        }catch(e){
+            //We don't need to do anything here, but let's log the error
+            console.log(e);
+        }
+        
+        
+    }
+      
+    return (
+        <div className="flex flex-col items-center justify-center">
+            <div className='text-white font-bold m-20'>Oops!  We ran into a problem trying to get a token.  Let's try and fix it!</div>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleInteractive()}>Fix It!</button>
+        </div>
+    )
+    
+    
 }
+
 
 export default InteractionRequired;

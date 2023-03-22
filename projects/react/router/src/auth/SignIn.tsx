@@ -1,3 +1,4 @@
+import { OIDC_DEFAULT_SCOPES } from '@azure/msal-common';
 import { useMsal, useIsAuthenticated } from '@azure/msal-react';
 import { Navigate, useLocation } from 'react-router-dom';
 //import logoDark from '../assets/ms-symbollockup_signin_dark_short.svg';
@@ -10,7 +11,7 @@ function SignIn(){
     const {state} = useLocation();
 
     const loginRequest = {
-        scopes: ["User.Read"]
+        scopes: OIDC_DEFAULT_SCOPES.concat(["https://graph.microsoft.com//.default"])
     };
 
     const handleLogin = () => {

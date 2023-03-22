@@ -2,13 +2,18 @@ import { PublicClientApplication } from "@azure/msal-browser";
 import { Configuration } from "@azure/msal-browser/dist/config/Configuration";
 import { MsalProvider } from "@azure/msal-react";
 import { PropsWithChildren } from "react";
+import { NavigateFunction } from "react-router";
 import { ApiClient } from "./ApiClient";
 import { API, AuthContext, IAuthContext } from "./AuthContext";
+import { TenantAlias } from "./TenantAlias";
 
 export type AuthProviderProps = PropsWithChildren<{
     clientId: string,
     redirectUri: string,
+    navigate: NavigateFunction,
+    tenantAlias?: TenantAlias,
     apis?: API[],
+    
     providerConfig?: any,
 
 }>;
@@ -21,7 +26,7 @@ export type AuthProviderProps = PropsWithChildren<{
  * @param providerConfig: optional: Additional provider configuration (reserved)
  * @returns 
  */
-export function AuthProvider({clientId, redirectUri, apis = [{endpoint: "https://graph.microsoft.com"}], providerConfig, children}: AuthProviderProps) : React.ReactElement {
+export function AuthProvider({clientId, redirectUri, navigate, tenantAlias="common", apis = [{endpoint: "https://graph.microsoft.com"}], providerConfig, children}: AuthProviderProps) : React.ReactElement {
 
     let msalConfig: Configuration;
 
@@ -31,7 +36,7 @@ export function AuthProvider({clientId, redirectUri, apis = [{endpoint: "https:/
         msalConfig = {
             auth: {
             clientId: clientId,
-            authority: "https://login.microsoftonline.com/consumers",
+            authority: "https://login.microsoftonline.com/".concat(tenantAlias),
             redirectUri: redirectUri
             },
             cache: {
@@ -43,7 +48,7 @@ export function AuthProvider({clientId, redirectUri, apis = [{endpoint: "https:/
 
     
     const msalInstance = new PublicClientApplication(msalConfig);
-    const apiClient = new ApiClient(msalInstance, apis);
+    const apiClient = new ApiClient(msalInstance, apis, navigate);
 
     const contextValue : IAuthContext = {
         apis : apis,

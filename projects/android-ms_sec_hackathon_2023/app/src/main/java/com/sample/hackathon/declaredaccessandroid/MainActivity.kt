@@ -15,7 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import com.sample.hackathon.declaredaccessandroid.navigation.*
 import com.sample.hackathon.declaredaccessandroid.ui.SplashScreen
 
-class MainActivity : ComponentActivity() {
+class MainActivityNew : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

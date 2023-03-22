@@ -6,6 +6,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.sample.hackathon.declaredaccessandroid.msal.MsalPublicClientFactory
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.withContext
 
 @Composable
 fun AuthNavHost(
@@ -20,11 +24,15 @@ fun AuthNavHost(
     unprotectedRoutes: NavGraphBuilder.() -> Unit
 ) {
     LaunchedEffect(Unit) {
-        val userIsLoggedIn = true
-        if (userIsLoggedIn) {
-            navController.navigateAndReplaceStartRoute(protectedRoutesRootId)
-        } else {
-            navController.navigateAndReplaceStartRoute(unprotectedRoutesRootId)
+        withContext(IO) {
+            val isLoggedIn = MsalPublicClientFactory.isUserLoggedIn()
+            withContext(Main) {
+                if (isLoggedIn) {
+                    navController.navigateAndReplaceStartRoute(protectedRoutesRootId)
+                } else {
+                    navController.navigateAndReplaceStartRoute(unprotectedRoutesRootId)
+                }
+            }
         }
     }
 

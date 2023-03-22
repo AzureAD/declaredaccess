@@ -49,7 +49,7 @@ export class ApiClient implements IApiClient{
     
         if(match !== undefined){
             if(match.aadAppId !== undefined){
-                scope = "api://".concat(match.aadAppId);
+                scope = match.aadAppId;
             }else{
                 scope = match?.endpoint;
             }

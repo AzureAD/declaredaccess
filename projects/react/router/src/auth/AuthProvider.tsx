@@ -3,16 +3,25 @@ import { Configuration } from "@azure/msal-browser/dist/config/Configuration";
 import { MsalProvider } from "@azure/msal-react";
 import { PropsWithChildren } from "react";
 import { ApiClient } from "./ApiClient";
-import { AuthContext, IAuthContext } from "./AuthContext";
+import { API, AuthContext, IAuthContext } from "./AuthContext";
 
 export type AuthProviderProps = PropsWithChildren<{
     clientId: string,
     redirectUri: string,
+    apis?: API[],
     providerConfig?: any,
 
 }>;
 
-export function AuthProvider({clientId, redirectUri, providerConfig, children}: AuthProviderProps) : React.ReactElement {
+/**
+ * 
+ * @param clientId: required: The client id (app id) associated with the app registration in Microsoft Identity (AAD)
+ * @param redirectUri: required: The redirect uri associated with the app registration in Microsoft Identity (AAD)
+ * @param apis: optional: An array of API type that should include any APIs that you will call in your application that are protected by AAD.  Defaults to https://graph.microsoft.com
+ * @param providerConfig: optional: Additional provider configuration (reserved)
+ * @returns 
+ */
+export function AuthProvider({clientId, redirectUri, apis = [{endpoint: "https://graph.microsoft.com"}], providerConfig, children}: AuthProviderProps) : React.ReactElement {
 
     let msalConfig: Configuration;
 
@@ -34,8 +43,7 @@ export function AuthProvider({clientId, redirectUri, providerConfig, children}: 
 
     
     const msalInstance = new PublicClientApplication(msalConfig);
-    const apis = [{endpoint: "https://graph.microsoft.com"}];
-    const apiClient = new ApiClient(msalInstance, apis );
+    const apiClient = new ApiClient(msalInstance, apis);
 
     const contextValue : IAuthContext = {
         apis : apis,

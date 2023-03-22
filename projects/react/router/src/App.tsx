@@ -11,9 +11,11 @@ import Profile from './graph/Profile';
 
 function App() {
 
+  const apis = [{endpoint: "https://graph.microsoft.com"}];
+
   return (
     <>
-    <AuthProvider clientId={'c8263c9e-3bd0-4ee6-af0c-799099b8ec56'} redirectUri={'http://localhost:3000'}>
+    <AuthProvider clientId={'c8263c9e-3bd0-4ee6-af0c-799099b8ec56'} redirectUri={'http://localhost:3000'} apis={apis}>
     <NavBar></NavBar>
     <Layout>
     <Routes>

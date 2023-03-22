@@ -37,7 +37,7 @@
 
                 <data
                     android:host="com.sample.hackathon.declaredaccessandroid"
-                    android:path="/J8KjHlcZxH1UqP+jeJdL7kLyk1Q="
+                    android:path="/1wIqXSqBj7w+h11ZifsnqwgyKrY="
                     android:scheme="msauth" />
             </intent-filter>
         </activity>

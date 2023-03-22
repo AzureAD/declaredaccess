@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.microsoft.identity.client.AuthenticationCallback
@@ -33,7 +34,10 @@ fun WelcomeScreen(navController: NavController) {
     ) {
         val activity = LocalContext.current as Activity
 
-        Text("Welcome")
+        Text(text = "Welcome",
+            modifier = Modifier.padding(20.dp),
+            fontSize = 20.sp
+        )
         Button(onClick = {
             logIn(activity)
         }, modifier = Modifier.padding(16.dp)) {
@@ -50,41 +54,21 @@ fun WelcomePreview() {
 }
 
 private fun logIn(activity: Activity) {
-//    val signInParameters = SignInParameters
-//        .builder()
-//        .withActivity(activity)
-//        .withScope("https://graph.microsoft.com/.default")
-//        .withCallback(object :
-//            AuthenticationCallback {
-//            override fun onCancel() {
-//                Log.d("TAG", "Cancel!")
-//            }
-//
-//            override fun onSuccess(authenticationResult: IAuthenticationResult) {
-//                Thread {
-//                    Log.d(
-//                        "TAG",
-//                        "Success: " + authenticationResult.accessToken
-//                    )
-//                    val userCall =
-//                        GraphServiceFactory.getInstance().me
-//                    try {
-//                        val response = userCall.execute()
-//                        val user = response.body()
-//                    } catch (e: IOException) {
-//                        throw RuntimeException(e)
-//                    }
-//                }.start()
-//            }
-//
-//            override fun onError(exception: MsalException) {
-//                Log.d(
-//                    "TAG",
-//                    "Error! " + Log.getStackTraceString(exception)
-//                )
-//            }
-//        })
-//        .build()
-//    MsalPublicClientFactory.signIn(signInParameters)
+    val signInParameters = SignInParameters
+        .builder()
+        .withActivity(activity)
+        .withScope("https://graph.microsoft.com/.default")
+        .withCallback(object :
+            AuthenticationCallback {
+            override fun onCancel() { }
 
+            override fun onSuccess(authenticationResult: IAuthenticationResult) {
+                // TODO update navigation
+            }
+
+            override fun onError(exception: MsalException) {}
+        })
+        .build()
+
+    MsalPublicClientFactory.signIn(signInParameters)
 }

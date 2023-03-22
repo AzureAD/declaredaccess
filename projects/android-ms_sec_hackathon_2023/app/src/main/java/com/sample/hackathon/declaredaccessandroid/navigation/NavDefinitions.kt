@@ -7,7 +7,7 @@ object RootNav {
 object ProtectedRoutesNav {
     const val ROUTE = "protected_routes_nav"
     const val HOME_SCREEN = "home"
-    const val SETTINGS_SCREEN = "settings"
+    const val PROFILE_SCREEN = "settings"
 }
 
 object UnprotectedRoutesNav {

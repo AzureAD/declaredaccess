@@ -14,6 +14,7 @@ import com.microsoft.identity.client.SignInParameters;
 import com.microsoft.identity.client.exception.MsalException;
 import com.microsoft.identity.common.java.util.ResultFuture;
 import com.sample.hackathon.declaredaccessandroid.R;
+import com.sample.hackathon.declaredaccessandroid.graph.GraphServiceFactory;
 
 import java.util.concurrent.ExecutionException;
 
@@ -55,6 +56,7 @@ public class MsalPublicClientFactory {
                     public void onCreated(ISingleAccountPublicClientApplication application) {
                         instance = application;
                         future.setResult(application);
+                        GraphServiceFactory.init(instance);
                     }
 
                     @Override

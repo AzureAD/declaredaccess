@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.sample.hackathon.declaredaccessandroid.navigation.ProtectedRoutesNav
@@ -22,16 +23,19 @@ fun HomeScreen(navController: NavController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Home")
+        Text(text = "Home",
+            modifier = Modifier.padding(20.dp),
+            fontSize = 20.sp
+        )
         Button(onClick = {
-
+            // TODO - call MSAL.logout() and update navigation
         }, modifier = Modifier.padding(16.dp)) {
             Text("Log out")
         }
         Button(onClick = {
-            navController.navigate(ProtectedRoutesNav.SETTINGS_SCREEN)
+            navController.navigate(ProtectedRoutesNav.PROFILE_SCREEN)
         }, modifier = Modifier.padding(16.dp)) {
-            Text("Settings")
+            Text("Profile")
         }
     }
 }

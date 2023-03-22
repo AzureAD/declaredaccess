@@ -1,7 +1,7 @@
 {
   "client_id" : "7bb87d8e-c5c8-4b7c-a834-8e86826c7f6e",
   "authorization_user_agent" : "DEFAULT",
-  "redirect_uri" : "msauth://com.sample.hackathon.declaredaccessandroid/J8KjHlcZxH1UqP%2BjeJdL7kLyk1Q%3D",
+  "redirect_uri" : "msauth://com.sample.hackathon.declaredaccessandroid/1wIqXSqBj7w%2Bh11ZifsnqwgyKrY%3D",
   "account_mode" : "SINGLE",
   "broker_redirect_uri_registered": true,
   "authorities" : [

@@ -1,5 +1,7 @@
 package com.sample.hackathon.declaredaccessandroid.graph;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -17,13 +19,34 @@ public class GraphServiceFactory {
 
     private static final String BASE_URL_GRAPH = "https://graph.microsoft.com/v1.0/";
 
+    // TODO make blocking and use Future
+    public static void init(
+            @Nullable final ISingleAccountPublicClientApplication publicClientApplication) {
+        if (instance == null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    instance = createDefaultGraphService(publicClientApplication);
+                }
+            }).start();
+        }
+    }
+    private static GraphService instance;
+
+    public static GraphService getInstance() {
+        if (instance == null) {
+            throw new IllegalArgumentException("GraphService must be initialised first");
+        }
+        return instance;
+    }
+
     /**
      * Creates a new {@link GraphService} instance.
      *
      * @param httpClient The underlying HTTP client to use.
      * @return An instance of the service object.
      */
-    public static GraphService createGraphService(@NonNull final OkHttpClient httpClient) {
+    private static GraphService createGraphService(@NonNull final OkHttpClient httpClient) {
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL_GRAPH)
                 .client(httpClient)
@@ -38,7 +61,7 @@ public class GraphServiceFactory {
      * @return An instance of the GraphService initialized with defaults for the Microsoft
      * Security Hackathon.
      */
-    public static GraphService createDefaultGraphService(
+    private static GraphService createDefaultGraphService(
             @Nullable final ISingleAccountPublicClientApplication publicClientApplication) {
         return createGraphService(HttpClientFactory.createDefaultHttpClient(publicClientApplication));
     }

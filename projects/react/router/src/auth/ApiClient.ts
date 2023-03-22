@@ -1,5 +1,6 @@
-import { IPublicClientApplication } from "@azure/msal-browser";
-import { API, IAuthContext } from "./AuthContext";
+import { AuthError, IPublicClientApplication } from "@azure/msal-browser";
+import { API } from "./AuthContext";
+import { NavigateFunction } from "react-router-dom";
 
 
 export interface IApiClient {
@@ -10,10 +11,12 @@ export class ApiClient implements IApiClient{
 
     msal: IPublicClientApplication;
     apis: API[];
+    navigate: NavigateFunction;
 
-    constructor(msal: IPublicClientApplication, apis: API[]){
+    constructor(msal: IPublicClientApplication, apis: API[], navigate: NavigateFunction){
         this.msal = msal;
         this.apis = apis;
+        this.navigate = navigate;
     }
 
     public async fetch(input: RequestInfo | URL, init?: RequestInit) : Promise<Response> {
@@ -57,7 +60,10 @@ export class ApiClient implements IApiClient{
             return originalFetch(input, init);
         }
 
-        scope = scope.concat("/.default");
+        //scope = scope.concat("/.default");
+
+        //Invalid scope for testing:
+        scope = scope.concat("");
         
         const tokenRequest = {
             scopes: [scope],
@@ -92,9 +98,20 @@ export class ApiClient implements IApiClient{
             }
             
             
-        }catch(e) {
+        }catch(e: any) {
             //TODO: Handle errors from acquire token silent.... including retry
-            //with claims challenge
+            if(this.isAuthError(e)){
+                let error = e as AuthError;
+                let state = {
+                    interactionRequiredDetails: {
+                        silentRequest: tokenRequest,
+                        subErrorCode: error.subError,
+                        challenge: undefined
+                    }
+                };
+                
+                this.navigate("/interactionrequired", {replace:true, state:state});
+            }
             throw e;
         }
 
@@ -106,6 +123,10 @@ export class ApiClient implements IApiClient{
 
     isRequest(input: string | Request): input is Request {
         return (input as Request).body !== undefined;
+    }
+
+    isAuthError(input: any): input is AuthError {
+        return (input as AuthError).errorCode !== undefined;
     }
 
 }

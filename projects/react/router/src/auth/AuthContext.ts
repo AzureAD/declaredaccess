@@ -1,4 +1,3 @@
-import { IPublicClientApplication } from "@azure/msal-browser";
 import * as React from "react";
 import { IApiClient } from "./ApiClient";
 

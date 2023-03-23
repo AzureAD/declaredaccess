@@ -14,6 +14,7 @@ import com.microsoft.identity.client.ICurrentAccountResult;
 import com.microsoft.identity.client.ISingleAccountPublicClientApplication;
 import com.microsoft.identity.client.exception.MsalException;
 import com.sample.hackathon.declaredaccessandroid.msal.conf.ResourceConfiguration;
+import com.sample.hackathon.declaredaccessandroid.msal.exception.NoSignedInUserException;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -71,6 +72,11 @@ class InterceptorFactory {
             final ICurrentAccountResult currentAccountResult = publicClientApplication.getCurrentAccount();
             final IAccount account = currentAccountResult.getCurrentAccount();
 
+            if (null == account) {
+                // There is no current / signed-in account
+                throw new NoSignedInUserException("No current account found.");
+            }
+
             // Construct our params...
             final List<String> scopes = new ArrayList<>();
             scopes.add(configuration.getDefaultScope());
@@ -88,7 +94,7 @@ class InterceptorFactory {
 
             // Extract & return the token...
             return result.getAccessToken();
-        } catch (final InterruptedException e) {
+        } catch (final InterruptedException | NoSignedInUserException e) {
             throw new RuntimeException(e);
         }
     }

@@ -66,7 +66,7 @@ class InterceptorFactory {
 
     private static String acquireToken(
             @NonNull final ISingleAccountPublicClientApplication publicClientApplication,
-            @NonNull final ResourceConfiguration configuration) throws MsalException {
+            @NonNull final ResourceConfiguration configuration) throws MsalException, NoSignedInUserException {
         // Get our user...
         try {
             final ICurrentAccountResult currentAccountResult = publicClientApplication.getCurrentAccount();
@@ -94,7 +94,7 @@ class InterceptorFactory {
 
             // Extract & return the token...
             return result.getAccessToken();
-        } catch (final InterruptedException | NoSignedInUserException e) {
+        } catch (final InterruptedException e) {
             throw new RuntimeException(e);
         }
     }

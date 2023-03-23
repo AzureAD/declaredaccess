@@ -13,8 +13,10 @@ import com.microsoft.identity.client.IAuthenticationResult;
 import com.microsoft.identity.client.ICurrentAccountResult;
 import com.microsoft.identity.client.ISingleAccountPublicClientApplication;
 import com.microsoft.identity.client.exception.MsalException;
+import com.microsoft.identity.client.exception.MsalUiRequiredException;
 import com.sample.hackathon.declaredaccessandroid.msal.conf.ResourceConfiguration;
 import com.sample.hackathon.declaredaccessandroid.msal.exception.NoSignedInUserException;
+import com.sample.hackathon.declaredaccessandroid.msal.exception.UiRequiredRequiredException;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,6 +26,8 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 
 class InterceptorFactory {
+
+    public static final String TAG = "Interceptor Factory";
 
     @NonNull
     static Interceptor createApplicationInterceptor(
@@ -55,8 +59,12 @@ class InterceptorFactory {
                             .addHeader("Authorization", "Bearer " + accessToken)
                             .build();
                 } catch (final MsalException e) {
-                    // TODO Abort & Handle...
-                    Log.e("Interceptor Factory","");
+                    Log.e(TAG, "We encountered an error: " + Log.getStackTraceString(e));
+                    if (e instanceof MsalUiRequiredException) {
+                        // We cannot resolve this issue locally, pass it up to the caller for
+                        // user remediation
+                        throw new UiRequiredRequiredException(e);
+                    }
                 }
             }
 

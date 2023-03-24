@@ -1,6 +1,5 @@
 package com.sample.hackathon.declaredaccessandroid.navigation
 
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -18,4 +17,3 @@ fun NavGraphBuilder.protectedRoutesGraph(navController: NavHostController) {
         }
     }
 }
-

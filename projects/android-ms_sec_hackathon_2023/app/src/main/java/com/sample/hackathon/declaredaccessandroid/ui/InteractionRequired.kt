@@ -1,6 +1,7 @@
 package com.sample.hackathon.declaredaccessandroid.ui
 
 import android.app.Activity
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -48,19 +49,18 @@ fun InteractionRequired() {
 }
 
 private fun signIn(activity: Activity, navController: NavController) {
-    val acquireTokenParameters = AcquireTokenParameters.Builder()
-        .startAuthorizationFromActivity(activity)
-        .withCallback(object :
-            AuthenticationCallback {
-            override fun onCancel() { }
+    MsalPublicClientFactory.acquireTokenInteractively(activity, object : AuthenticationCallback {
+        override fun onSuccess(authenticationResult: IAuthenticationResult) {
+            Log.d("Msal", "Successfully authenticated")
+            navController.popBackStack()
+        }
 
-            override fun onSuccess(authenticationResult: IAuthenticationResult) {
-                navController.popBackStack()
-            }
+        override fun onError(exception: MsalException) {
+            Log.e("Msal", "Authentication failed: ${exception.message}", exception)
+        }
 
-            override fun onError(exception: MsalException) {}
-        })
-        .build()
-
-    MsalPublicClientFactory.acquireTokenInteractively(acquireTokenParameters)
+        override fun onCancel() {
+            Log.d("Msal", "User cancelled login.")
+        }
+    })
 }

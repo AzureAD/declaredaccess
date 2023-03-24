@@ -38,7 +38,7 @@ fun ProfileScreen(navController: NavController) {
                 val userCall =
                     GraphServiceFactory.getInstance().me
                 try {
-                userProfile = userCall.execute().body()
+                    userProfile = userCall.execute().body()
                 } catch (e: NoSignedInUserException) {
                     Log.d("ProfileScreen", "No signed in user.")
                 }

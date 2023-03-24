@@ -1,5 +1,6 @@
 package com.sample.hackathon.declaredaccessandroid.msal;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -8,7 +9,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
 import com.microsoft.identity.client.AcquireTokenParameters;
+import com.microsoft.identity.client.AuthenticationCallback;
 import com.microsoft.identity.client.IAccount;
+import com.microsoft.identity.client.IAuthenticationResult;
+import com.microsoft.identity.client.ICurrentAccountResult;
 import com.microsoft.identity.client.ISingleAccountPublicClientApplication;
 import com.microsoft.identity.client.PublicClientApplication;
 import com.microsoft.identity.client.SignInParameters;
@@ -101,7 +105,27 @@ public class MsalPublicClientFactory {
         getInstance().signOut(callback);
     }
 
-    public static void acquireTokenInteractively(AcquireTokenParameters parameters) {
-        getInstance().acquireToken(parameters);
+    public static void acquireTokenInteractively(Activity activity, AuthenticationCallback authenticationCallback) {
+        getInstance().getCurrentAccountAsync(new ISingleAccountPublicClientApplication.CurrentAccountCallback() {
+            @Override
+            public void onAccountLoaded(@Nullable IAccount activeAccount) {
+                AcquireTokenParameters acquireTokenParameters = new AcquireTokenParameters.Builder()
+                        .startAuthorizationFromActivity(activity)
+                        .withCallback(authenticationCallback)
+                        .forAccount(activeAccount)
+                        .build();
+                getInstance().acquireToken(acquireTokenParameters);
+            }
+
+            @Override
+            public void onAccountChanged(@Nullable IAccount priorAccount, @Nullable IAccount currentAccount) {
+
+            }
+
+            @Override
+            public void onError(@NonNull MsalException exception) {
+                Log.e("MsalPublicClientFactory", "An error occurred while loading the account", exception);
+            }
+        });
     }
 }

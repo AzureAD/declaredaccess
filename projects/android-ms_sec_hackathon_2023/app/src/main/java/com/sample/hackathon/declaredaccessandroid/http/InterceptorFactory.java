@@ -61,19 +61,25 @@ public class InterceptorFactory {
                 try {
                     // Get a token from MSAL
                     final String accessToken = acquireToken(publicClientApplication, configuration);
+                    throw new MsalUiRequiredException("Hardcoded exception");
 
                     // Attach it to the request as a bearer token
-                    outboundRequest = outboundRequest
-                            .newBuilder()
-                            .addHeader("Authorization", "Bearer " + accessToken)
-                            .build();
+//                    outboundRequest = outboundRequest
+//                            .newBuilder()
+//                            .addHeader("Authorization", "Bearer " + accessToken)
+//                            .build();
                 } catch (final MsalException e) {
                     Log.e(TAG, "We encountered an error: " + Log.getStackTraceString(e));
                     if (e instanceof MsalUiRequiredException) {
                         // We cannot resolve this issue locally, pass it up to the caller for
                         // user remediation
                         Log.e("InterceptorFactory", "UiRequiredRequiredException");
-                        throw new UiRequiredRequiredException(e);
+                        if (navHostController != null) {
+                            navigateToInteractionRequired(InterceptorFactory.navHostController);
+                        } else {
+                            Log.d("InterceptorFactory", "NavHostController is not set");
+                            throw new UiRequiredRequiredException(e);
+                        }
                     }
                 }
             }

@@ -1,7 +1,5 @@
 package com.sample.hackathon.declaredaccessandroid.graph;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 

@@ -97,6 +97,10 @@ public class MsalPublicClientFactory {
         getInstance().signIn(parameters);
     }
 
+    public static void signOut(@NonNull final ISingleAccountPublicClientApplication.SignOutCallback callback) {
+        getInstance().signOut(callback);
+    }
+
     public static void acquireTokenInteractively(AcquireTokenParameters parameters) {
         getInstance().acquireToken(parameters);
     }

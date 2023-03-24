@@ -12,12 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.microsoft.identity.client.ISingleAccountPublicClientApplication.SignOutCallback
+import com.microsoft.identity.client.exception.MsalException
+import com.sample.hackathon.declaredaccessandroid.msal.MsalPublicClientFactory
 import com.sample.hackathon.declaredaccessandroid.navigation.ProtectedRoutesNav
+import com.sample.hackathon.declaredaccessandroid.navigation.navigateToUnprotectedRoutesRoot
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavHostController) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -28,14 +32,14 @@ fun HomeScreen(navController: NavController) {
             fontSize = 20.sp
         )
         Button(onClick = {
-            // TODO - call MSAL.logout() and update navigation
-        }, modifier = Modifier.padding(16.dp)) {
-            Text("Log out")
-        }
-        Button(onClick = {
             navController.navigate(ProtectedRoutesNav.PROFILE_SCREEN)
         }, modifier = Modifier.padding(16.dp)) {
             Text("Profile")
+        }
+        Button(onClick = {
+            logOut(navController)
+        }, modifier = Modifier.padding(16.dp)) {
+            Text("Log out")
         }
     }
 }
@@ -45,4 +49,16 @@ fun HomeScreen(navController: NavController) {
 fun HomePreview() {
     val navController = rememberNavController()
     HomeScreen(navController = navController)
+}
+
+private fun logOut(navController: NavHostController) {
+    MsalPublicClientFactory.signOut(object : SignOutCallback {
+        override fun onSignOut() {
+            navController.navigateToUnprotectedRoutesRoot()
+        }
+
+        override fun onError(exception: MsalException) {
+
+        }
+    })
 }

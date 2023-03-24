@@ -18,7 +18,6 @@ import androidx.navigation.NavController
 import com.microsoft.identity.client.AcquireTokenParameters
 import com.microsoft.identity.client.AuthenticationCallback
 import com.microsoft.identity.client.IAuthenticationResult
-import com.microsoft.identity.client.SignInParameters
 import com.microsoft.identity.client.exception.MsalException
 import com.sample.hackathon.declaredaccessandroid.msal.MsalPublicClientFactory
 
@@ -35,7 +34,7 @@ fun InteractionRequiredScreen(navController: NavController) {
             textAlign = TextAlign.Center, modifier = Modifier.padding(16.dp)
         )
         Button(onClick = {
-            acquireTokenInteractively(activity, navController)
+            signIn(activity, navController)
         }, modifier = Modifier.padding(16.dp)) {
             Text("Fix it 👌")
         }
@@ -48,7 +47,7 @@ fun InteractionRequired() {
     SplashScreen()
 }
 
-private fun acquireTokenInteractively(activity: Activity, navController: NavController) {
+private fun signIn(activity: Activity, navController: NavController) {
     val acquireTokenParameters = AcquireTokenParameters.Builder()
         .startAuthorizationFromActivity(activity)
         .withCallback(object :

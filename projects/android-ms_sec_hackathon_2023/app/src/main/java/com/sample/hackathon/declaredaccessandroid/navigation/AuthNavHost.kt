@@ -55,9 +55,11 @@ fun AuthNavHost(
 }
 
 fun NavHostController.navigateAndReplaceStartRoute(newHomeRoute: String) {
-    popBackStack(graph.startDestinationId, true)
-    graph.setStartDestination(newHomeRoute)
-    navigate(newHomeRoute)
+    Handler(Looper.getMainLooper()).post {
+        popBackStack(graph.startDestinationId, true)
+        graph.setStartDestination(newHomeRoute)
+        navigate(newHomeRoute)
+    }
 }
 
 fun NavHostController.navigateToInteractionRequired() {
@@ -65,5 +67,21 @@ fun NavHostController.navigateToInteractionRequired() {
         popBackStack(graph.startDestinationId, true)
         graph.setStartDestination(RootNav.INTERACTION_REQUIRED)
         navigate(RootNav.INTERACTION_REQUIRED)
+    }
+}
+
+fun NavHostController.navigateToUnprotectedRoutesRoot() {
+    Handler(Looper.getMainLooper()).post {
+        popBackStack(graph.startDestinationId, true)
+        graph.setStartDestination(UnprotectedRoutesNav.ROUTE)
+        navigate(UnprotectedRoutesNav.ROUTE)
+    }
+}
+
+fun NavHostController.navigateToProtectedRoutesRoot() {
+    Handler(Looper.getMainLooper()).post {
+        popBackStack(graph.startDestinationId, true)
+        graph.setStartDestination(ProtectedRoutesNav.ROUTE)
+        navigate(ProtectedRoutesNav.ROUTE)
     }
 }

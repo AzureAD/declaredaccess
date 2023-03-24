@@ -1,5 +1,7 @@
 package com.sample.hackathon.declaredaccessandroid.navigation
 
+import android.os.Handler
+import android.os.Looper
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -21,7 +23,9 @@ fun AuthNavHost(
     protectedRoutesRootId: String,
     protectedRoutes: NavGraphBuilder.() -> Unit,
     unprotectedRoutesRootId: String,
-    unprotectedRoutes: NavGraphBuilder.() -> Unit
+    unprotectedRoutes: NavGraphBuilder.() -> Unit,
+    interactionRequiredScreenId: String,
+    interactionRequiredScreen: NavGraphBuilder.() -> Unit,
 ) {
     LaunchedEffect(Unit) {
         withContext(IO) {
@@ -45,6 +49,7 @@ fun AuthNavHost(
             splashScreen()
             protectedRoutes()
             unprotectedRoutes()
+            interactionRequiredScreen()
         }
     )
 }
@@ -53,4 +58,12 @@ fun NavHostController.navigateAndReplaceStartRoute(newHomeRoute: String) {
     popBackStack(graph.startDestinationId, true)
     graph.setStartDestination(newHomeRoute)
     navigate(newHomeRoute)
+}
+
+fun NavHostController.navigateToInteractionRequired() {
+    Handler(Looper.getMainLooper()).post {
+        popBackStack(graph.startDestinationId, true)
+        graph.setStartDestination(RootNav.INTERACTION_REQUIRED)
+        navigate(RootNav.INTERACTION_REQUIRED)
+    }
 }

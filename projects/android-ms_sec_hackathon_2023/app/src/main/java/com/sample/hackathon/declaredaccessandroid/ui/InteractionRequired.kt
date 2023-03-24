@@ -11,11 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.microsoft.identity.client.AcquireTokenParameters
 import com.microsoft.identity.client.AuthenticationCallback
 import com.microsoft.identity.client.IAuthenticationResult
 import com.microsoft.identity.client.SignInParameters
@@ -23,7 +23,7 @@ import com.microsoft.identity.client.exception.MsalException
 import com.sample.hackathon.declaredaccessandroid.msal.MsalPublicClientFactory
 
 @Composable
-fun WelcomeScreen() {
+fun InteractionRequiredScreen(navController: NavController) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -31,40 +31,37 @@ fun WelcomeScreen() {
     ) {
         val activity = LocalContext.current as Activity
 
-        Text(text = "Welcome",
-            modifier = Modifier.padding(20.dp),
-            fontSize = 20.sp
+        Text("Oops!  We ran into a problem trying to get a token. Let's try and fix it!",
+            textAlign = TextAlign.Center, modifier = Modifier.padding(16.dp)
         )
         Button(onClick = {
-            acquireTokenInteractively(activity)
+            acquireTokenInteractively(activity, navController)
         }, modifier = Modifier.padding(16.dp)) {
-            Text("Log in")
+            Text("Fix it 👌")
         }
     }
 }
 
 @Preview
 @Composable
-fun WelcomePreview() {
-    WelcomeScreen()
+fun InteractionRequired() {
+    SplashScreen()
 }
 
-private fun acquireTokenInteractively(activity: Activity) {
-    val signInParameters = SignInParameters
-        .builder()
-        .withActivity(activity)
-        .withScope("https://graph.microsoft.com/.default")
+private fun acquireTokenInteractively(activity: Activity, navController: NavController) {
+    val acquireTokenParameters = AcquireTokenParameters.Builder()
+        .startAuthorizationFromActivity(activity)
         .withCallback(object :
             AuthenticationCallback {
             override fun onCancel() { }
 
             override fun onSuccess(authenticationResult: IAuthenticationResult) {
-                // TODO update navigation
+                navController.popBackStack()
             }
 
             override fun onError(exception: MsalException) {}
         })
         .build()
 
-    MsalPublicClientFactory.signIn(signInParameters)
+    MsalPublicClientFactory.acquireTokenInteractively(acquireTokenParameters)
 }

@@ -1,7 +1,10 @@
 package com.sample.hackathon.declaredaccessandroid.ui
 
 import android.util.Log
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -14,12 +17,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.sample.hackathon.declaredaccessandroid.graph.GraphServiceFactory
 import com.sample.hackathon.declaredaccessandroid.graph.dto.User
-import kotlinx.coroutines.Dispatchers
+import com.sample.hackathon.declaredaccessandroid.msal.exception.NoSignedInUserException
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.IOException
 
 @Composable
 fun ProfileScreen(navController: NavController) {
@@ -37,7 +37,11 @@ fun ProfileScreen(navController: NavController) {
             withContext(IO) {
                 val userCall =
                     GraphServiceFactory.getInstance().me
+                try {
                 userProfile = userCall.execute().body()
+                } catch (e: NoSignedInUserException) {
+                    Log.d("ProfileScreen", "No signed in user.")
+                }
             }
         }
 

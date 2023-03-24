@@ -2,6 +2,7 @@ package com.sample.hackathon.declaredaccessandroid.navigation
 
 object RootNav {
     const val SPLASH_SCREEN = "splash"
+    const val INTERACTION_REQUIRED = "interaction_required"
 }
 
 object ProtectedRoutesNav {

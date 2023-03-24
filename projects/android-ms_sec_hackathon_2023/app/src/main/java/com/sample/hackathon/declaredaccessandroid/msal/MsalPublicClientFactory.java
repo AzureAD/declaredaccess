@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
+import com.microsoft.identity.client.AcquireTokenParameters;
 import com.microsoft.identity.client.IAccount;
 import com.microsoft.identity.client.ISingleAccountPublicClientApplication;
 import com.microsoft.identity.client.PublicClientApplication;
@@ -94,5 +95,9 @@ public class MsalPublicClientFactory {
 
     public static void signIn(SignInParameters parameters) {
         getInstance().signIn(parameters);
+    }
+
+    public static void acquireTokenInteractively(AcquireTokenParameters parameters) {
+        getInstance().acquireToken(parameters);
     }
 }

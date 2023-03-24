@@ -9,7 +9,7 @@ import com.sample.hackathon.declaredaccessandroid.ui.WelcomeScreen
 fun NavGraphBuilder.unprotectedRoutesGraph(navController: NavController) {
     navigation(startDestination = UnprotectedRoutesNav.WELCOME_SCREEN, route = UnprotectedRoutesNav.ROUTE) {
         composable(UnprotectedRoutesNav.WELCOME_SCREEN) {
-            WelcomeScreen(navController)
+            WelcomeScreen()
         }
     }
 }

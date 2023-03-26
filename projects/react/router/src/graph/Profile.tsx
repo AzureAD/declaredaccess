@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAuthContext } from '../auth/useAuthContext';
+import { useAuthContext } from 'declaredaccesslib';
 
 
 function Profile(){

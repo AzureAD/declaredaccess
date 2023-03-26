@@ -1,0 +1,45 @@
+{
+  "name": "declaredaccesslib",
+  "version": "1.0.0",
+  "description": "Library containing react components and hooks for declaratively adding Microsoft Identity (sign in, oAuth) support to your react based app",
+  "type": "module",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "rollup": "rollup -c"
+  },
+  "keywords": [
+    "react",
+    "msaljs",
+    "react-router-dom",
+    "oauth",
+    "auth"
+  ],
+  "author": "Microsoft",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@types/react-router-dom": "^5.3.3",
+    "rollup": "^3.20.1",
+    "rollup-plugin-dts": "^5.3.0",
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.2"
+  },
+  "peerDependencies": {
+    "@azure/msal-browser": "^2.34.0",
+    "@azure/msal-common": "^11.0.0",
+    "@azure/msal-react": "^1.5.4",
+    "react": "^16.8.0 || ^17 || ^18",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.9.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts"
+}

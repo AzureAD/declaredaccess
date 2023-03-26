@@ -1,11 +1,11 @@
 import { PublicClientApplication } from "@azure/msal-browser";
-import { Configuration } from "@azure/msal-browser/dist/config/Configuration";
+import { Configuration } from "@azure/msal-browser/dist/config/Configuration.js";
 import { MsalProvider } from "@azure/msal-react";
 import { PropsWithChildren } from "react";
-import { NavigateFunction } from "react-router";
-import { ApiClient } from "./ApiClient";
-import { API, AuthContext, IAuthContext } from "./AuthContext";
-import { TenantAlias } from "./TenantAlias";
+import { NavigateFunction } from "react-router-dom";
+import { ApiClient, API } from "../context/ApiClient.js";
+import { AuthContext, IAuthContext } from "../context/AuthContext.js";
+import { TenantAlias } from "../context/TenantAlias.js";
 
 export type AuthProviderProps = PropsWithChildren<{
     clientId: string,

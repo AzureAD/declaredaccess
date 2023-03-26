@@ -2,9 +2,16 @@ import { OIDC_DEFAULT_SCOPES } from '@azure/msal-common';
 import { useMsal, useIsAuthenticated } from '@azure/msal-react';
 import { Navigate, useLocation } from 'react-router-dom';
 //import logoDark from '../assets/ms-symbollockup_signin_dark_short.svg';
-import logoLight from '../assets/ms-symbollockup_signin_light_short.svg';
+//import logoLight from '../assets/ms-symbollockup_signin_light_short.svg';
 
-function SignIn(){
+type SignInProps = {
+    buttonText? : string,
+    buttonClassName? : string,
+    messageText? : string,
+    messageClassName? : string
+};
+
+function SignIn({buttonText = "Sign In", buttonClassName = "", messageClassName = "", messageText="Sign in to get started with the app!"}: SignInProps){
 
     const { instance } = useMsal();
     const isAuthenticated = useIsAuthenticated();
@@ -33,9 +40,10 @@ function SignIn(){
         return <Navigate to="/" replace />;
     }else{
         return (
-            <div className="flex items-center justify-center h-screen">
-                <img src={logoLight} className="" onClick={() => handleLogin()} alt="Sign in button" />
-            </div>
+            <>
+            <div className={messageClassName}>{messageText}</div>
+            <button className={buttonClassName} onClick={() => handleLogin()} >{buttonText}</button>
+            </>
         )
     }
     

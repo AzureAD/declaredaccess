@@ -3,13 +3,9 @@ import { Route, Routes, useNavigate} from "react-router-dom";
 import Consent from './consent/Consent';
 import Scopes from './scopes/Scopes';
 import Home from './home/Home';
-import ReadyCheckRoute from './ready/ReadyCheckRoute';
-import { AuthProvider } from './auth/AuthProvider';
-import SignIn from './auth/SignIn';
+import { ReadyCheckRoute, AuthProvider, InteractionRequired, SignIn, TenantAlias } from 'declaredaccesslib';
 import Layout from './layout/Layout';
 import Profile from './graph/Profile';
-import InteractionRequired from './auth/InteractionRequired';
-import { TenantAlias } from './auth/TenantAlias';
 
 function App() {
 
@@ -27,12 +23,16 @@ function App() {
     <Routes>
       <Route path='*' element={<Home />} />
       <Route path="/" element={<Home />} />
-      <Route path="/signin" element={<SignIn />} />
+      <Route path="/signin" element={<SignIn 
+            buttonClassName='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' 
+            messageClassName='text-white font-bold'/>} />
       <Route path="/consent" element={<Consent />} />
       <Route element={<ReadyCheckRoute />}>
         <Route path="/scopes" element={<Scopes />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/interactionrequired" element={<InteractionRequired/>}/>
+        <Route path="/interactionrequired" element={<InteractionRequired 
+            buttonClassName='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' 
+            messageClassName='text-white font-bold items-center'/>}/>
       </Route>
       
     </Routes>

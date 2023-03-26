@@ -3,7 +3,20 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { RedirectRequest } from '@azure/msal-browser';
 import { InteractionRequiredDetails } from './InteractionRequiredDetails';
 
-function InteractionRequired(){
+export type InteractionRequiredProps = {
+    buttonText? : string,
+    buttonClassName? : string,
+    messageText? : string,
+    messageClassName? : string
+}
+
+
+function InteractionRequired({
+    buttonText = "Try Again",
+    messageText = "Oops!  We ran into a problem trying to get a token.  Let's try and fix it!",
+    buttonClassName = "",
+    messageClassName = ""
+}: InteractionRequiredProps){
 
     const { instance } = useMsal();
     const isAuthenticated = useIsAuthenticated();
@@ -51,11 +64,15 @@ function InteractionRequired(){
         
     }
       
+    //text-white font-bold m-20
+    //Oops!  We ran into a problem trying to get a token.  Let's try and fix it!
+    //bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
+
     return (
-        <div className="flex flex-col items-center justify-center">
-            <div className='text-white font-bold m-20'>Oops!  We ran into a problem trying to get a token.  Let's try and fix it!</div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleInteractive()}>Fix It!</button>
-        </div>
+        <>
+        <div className={messageClassName}>{messageText}</div>
+        <button className="{buttonClassName}" onClick={() => handleInteractive()}>{buttonText}</button>
+        </>
     )
     
     

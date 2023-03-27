@@ -21,6 +21,8 @@ import com.microsoft.identity.common.java.util.ResultFuture;
 import com.sample.hackathon.declaredaccessandroid.R;
 import com.sample.hackathon.declaredaccessandroid.graph.GraphServiceFactory;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -106,12 +108,15 @@ public class MsalPublicClientFactory {
     }
 
     public static void acquireTokenInteractively(Activity activity, AuthenticationCallback authenticationCallback) {
+        List<String> scopes = Arrays.asList("openid", "profile", "https://graph.microsoft.com//.default");
+
         getInstance().getCurrentAccountAsync(new ISingleAccountPublicClientApplication.CurrentAccountCallback() {
             @Override
             public void onAccountLoaded(@Nullable IAccount activeAccount) {
                 AcquireTokenParameters acquireTokenParameters = new AcquireTokenParameters.Builder()
                         .startAuthorizationFromActivity(activity)
                         .withCallback(authenticationCallback)
+                        .withScopes(scopes)
                         .forAccount(activeAccount)
                         .build();
                 getInstance().acquireToken(acquireTokenParameters);

@@ -64,8 +64,6 @@ fun NavHostController.navigateAndReplaceStartRoute(newHomeRoute: String) {
 
 fun NavHostController.navigateToInteractionRequired() {
     Handler(Looper.getMainLooper()).post {
-        popBackStack(graph.startDestinationId, true)
-        graph.setStartDestination(RootNav.INTERACTION_REQUIRED)
         navigate(RootNav.INTERACTION_REQUIRED)
     }
 }

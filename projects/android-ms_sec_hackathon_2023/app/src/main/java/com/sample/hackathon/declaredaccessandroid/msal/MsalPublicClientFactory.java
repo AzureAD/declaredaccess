@@ -1,5 +1,6 @@
 package com.sample.hackathon.declaredaccessandroid.msal;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -7,7 +8,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
+import com.microsoft.identity.client.AcquireTokenParameters;
+import com.microsoft.identity.client.AuthenticationCallback;
 import com.microsoft.identity.client.IAccount;
+import com.microsoft.identity.client.IAuthenticationResult;
+import com.microsoft.identity.client.ICurrentAccountResult;
 import com.microsoft.identity.client.ISingleAccountPublicClientApplication;
 import com.microsoft.identity.client.PublicClientApplication;
 import com.microsoft.identity.client.SignInParameters;
@@ -16,6 +21,8 @@ import com.microsoft.identity.common.java.util.ResultFuture;
 import com.sample.hackathon.declaredaccessandroid.R;
 import com.sample.hackathon.declaredaccessandroid.graph.GraphServiceFactory;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -94,5 +101,36 @@ public class MsalPublicClientFactory {
 
     public static void signIn(SignInParameters parameters) {
         getInstance().signIn(parameters);
+    }
+
+    public static void signOut(@NonNull final ISingleAccountPublicClientApplication.SignOutCallback callback) {
+        getInstance().signOut(callback);
+    }
+
+    public static void acquireTokenInteractively(Activity activity, AuthenticationCallback authenticationCallback) {
+        List<String> scopes = Arrays.asList("openid", "profile", "https://graph.microsoft.com//.default");
+
+        getInstance().getCurrentAccountAsync(new ISingleAccountPublicClientApplication.CurrentAccountCallback() {
+            @Override
+            public void onAccountLoaded(@Nullable IAccount activeAccount) {
+                AcquireTokenParameters acquireTokenParameters = new AcquireTokenParameters.Builder()
+                        .startAuthorizationFromActivity(activity)
+                        .withCallback(authenticationCallback)
+                        .withScopes(scopes)
+                        .forAccount(activeAccount)
+                        .build();
+                getInstance().acquireToken(acquireTokenParameters);
+            }
+
+            @Override
+            public void onAccountChanged(@Nullable IAccount priorAccount, @Nullable IAccount currentAccount) {
+
+            }
+
+            @Override
+            public void onError(@NonNull MsalException exception) {
+                Log.e("MsalPublicClientFactory", "An error occurred while loading the account", exception);
+            }
+        });
     }
 }

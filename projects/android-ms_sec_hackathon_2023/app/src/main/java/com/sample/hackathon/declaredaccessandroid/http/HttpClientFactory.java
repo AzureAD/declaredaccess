@@ -5,6 +5,7 @@ import static com.sample.hackathon.declaredaccessandroid.http.InterceptorFactory
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.NavHostController;
 
 import com.microsoft.identity.client.ISingleAccountPublicClientApplication;
 

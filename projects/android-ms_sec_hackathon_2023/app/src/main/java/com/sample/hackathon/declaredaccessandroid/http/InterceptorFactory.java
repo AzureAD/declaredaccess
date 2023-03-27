@@ -1,12 +1,14 @@
 package com.sample.hackathon.declaredaccessandroid.http;
 
 import static com.sample.hackathon.declaredaccessandroid.msal.conf.ResourceConfigMetadata.RESOURCE_CONFIGURATION_MAP;
+import static com.sample.hackathon.declaredaccessandroid.navigation.AuthNavHostKt.navigateToInteractionRequired;
 
 import android.util.Base64;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.NavHostController;
 
 import com.microsoft.identity.client.AcquireTokenSilentParameters;
 import com.microsoft.identity.client.IAccount;
@@ -30,11 +32,18 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
-class InterceptorFactory {
+public class InterceptorFactory {
 
     public static final String TAG = "Interceptor Factory";
 
     private static final String AUTHENTICATE_HEADER = "WWW-authenticate";
+
+    private static NavHostController navHostController = null;
+
+    public static void setNavHostController(
+            @NonNull NavHostController navHostController) {
+        InterceptorFactory.navHostController = navHostController;
+    }
 
     @NonNull
     static Interceptor createApplicationInterceptor(
@@ -187,6 +196,14 @@ class InterceptorFactory {
 
             if (null == account) {
                 // There is no current / signed-in account
+                Log.e("InterceptorFactory", "No current account found.");
+                if (navHostController != null) {
+                    navigateToInteractionRequired(InterceptorFactory.navHostController);
+                } else {
+                    Log.d("InterceptorFactory", "NavHostController is not set");
+                }
+                // TODO we're navigating to a different screen, and abandoning the request. We
+                // should handle that more gracefully than throwing an exception.
                 throw new NoSignedInUserException("No current account found.");
             }
 
